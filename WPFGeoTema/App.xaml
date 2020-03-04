@@ -1,0 +1,90 @@
+﻿<Application x:Class="WPFGeoTema.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WPFGeoTema"
+             StartupUri="LoginWindow.xaml">
+    <Application.Resources>
+        <!--Changes the exit image if the IsMouseOver property is True-->
+        <Style x:Key="ExitStyleDef" TargetType="Image">
+            <Setter Property="Source" Value="Resources/Close.png"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Source" Value="Resources/CloseRed.png"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Style that inherits from ExitStyleDef but changes the original source picture-->
+        <Style x:Key="ExitStyleRed" TargetType="Image" BasedOn="{StaticResource ExitStyleDef}">
+            <Setter Property="Source" Value="Resources/CloseWhite.png"/>
+        </Style>
+         <!--Removes the standard button hover effect-->
+        <Style x:Key="ButtonStyleTransparent" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate  TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Background" Value="Transparent" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Replaces standard button hover with a dark gray colour inherits from ButtonStyleTransparent-->
+        <Style x:Key="ButtonStyleDarkGray" BasedOn="{StaticResource ButtonStyleTransparent}" TargetType="Button">
+            <Setter Property="Background" Value="#FF464545" />
+            <Setter Property="Foreground" Value="WhiteSmoke"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF707070"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <!--Style that changes the look of TabItems-->
+        <Style TargetType="TabItem">
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="#FFB9B9B9"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TabItem}">
+                        <Grid>
+                            <Border
+                                    Name="TabBorder"
+                                    Margin="0,0,0,0">
+                                <ContentPresenter x:Name="ContentSite"
+                                        ContentSource="Header"
+                                        Margin="12,2,12,2"
+                                        RecognizesAccessKey="True"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Width" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabBorder" Property="Background" Value="WhiteSmoke"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                                <Setter TargetName="TabBorder" Property="Margin" Value="-1,-1,0,-1"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition SourceName="TabBorder" Property="IsMouseOver" Value="True"/>
+                                    <Condition Property="IsSelected" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <MultiTrigger.Setters>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                </MultiTrigger.Setters>
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

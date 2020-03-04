@@ -1,0 +1,179 @@
+﻿<Window x:Class="WPFGeoTema.PrimaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFGeoTema"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        FontFamily="segoe ui light"
+        MouseLeftButtonDown="WindowMove"
+        Title="GeoTema" Height="450" Width="800">
+    <Border BorderBrush="#FF464545" BorderThickness="1">
+        <Grid Background="#FF464545">
+            <TabControl Background="WhiteSmoke" Margin="0,0,0,0" BorderThickness="0">
+
+                <!--First TabItem that displays the data from the SQL Database in a DataGrid-->
+                <TabItem Name="Read_" Margin="-1,-1,0,0" >
+                    <TabItem.Header>
+                        <TextBlock Text="Read" ToolTip="Read data from the SQL Database"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <DataGrid x:Name="DataGrid_" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False"
+                                  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.CanContentScroll="True"  Margin="20,52,20,20" BorderBrush="#FF464545" BorderThickness="1"
+                                  VerticalScrollBarVisibility="hidden" CanUserResizeRows="False" CanUserResizeColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Land" Binding="{Binding Path='Land'}" IsReadOnly="True" Width="186"/>
+                                <DataGridTextColumn Header="Verdensdel" Binding="{Binding Path='Verdensdel'}" IsReadOnly="True" Width="186"/>
+                                <DataGridTextColumn Header=" Fødselsrate" Binding="{Binding Path='Fødselsrate'}" IsReadOnly="True" Width="186"/>
+                                <DataGridTextColumn Header="Rang" Binding="{Binding Path='Rang'}" IsReadOnly="True" Width="186"/>
+                            </DataGrid.Columns >
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
+
+                <!--Second TabItem that allows the user to add data to the SQL Database-->
+                <TabItem Name="Create_" IsEnabled="False" Margin="0,-1,0,0" >
+                    <TabItem.Header>
+                        <TextBlock Text="Create" ToolTip="Create and add data to the SQL Database"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Column="1" Grid.Row="1" Margin="0,35,0,0">
+                            <Label Content="Land" />
+                            <TextBox x:Name="Land_" Width="180" Margin="0,5,0,0"/>
+                            <Label Content="Rang"/>
+                            <TextBox x:Name="Rang_" Margin="0,5,0,0"/>
+                            <Label Content="Fødselsrate"/>
+                            <TextBox x:Name="Fødselsrate_"/>
+                            <Label Content="Verdensdel" />
+                            <ComboBox Name="Verdensdel_">
+                                <ComboBoxItem Content="Afrika"/>
+                                <ComboBoxItem Content="Asien"/>
+                                <ComboBoxItem Content="Europa"/>
+                                <ComboBoxItem Content="Nordamerika"/>
+                                <ComboBoxItem Content="Sydamerika"/>
+                                <ComboBoxItem Content="Oceanien"/>
+                            </ComboBox>
+                            <Button Style="{StaticResource ButtonStyleDarkGray}" Name="Opret_" Content="Opret"
+                                    Height="30" Margin="30,15,30,0" Click="Opret__Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <!--Third TabItem that allows the user to change user information, create new users and reset passwords-->
+                <TabItem Name="Admin_" IsEnabled="False" Margin="0,-1,0,0">
+                    <TabItem.Header>
+                        <TextBlock Text="Admin" ToolTip="Admin page for managing accounts"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource ButtonStyleDarkGray}" x:Name="CreateUser_" Grid.Column="1" Grid.Row="1"
+                            Content="Create User" Margin="0,50,0,0" Height="30" Width="100" Click="CreateUser__Click"/>
+                        <StackPanel Grid.Column="2" Grid.Row="1"  Grid.RowSpan="2" Margin="60,0,0,0">
+                            <Label Content="Reset a users password" FontSize="18" FontWeight="Bold"/>
+                            <Label Content="Select a user" Margin="0,10,0,0"/>
+                            <ComboBox Name="UserList_" Margin="0,10,0,0"/>
+                            <Button Style="{StaticResource ButtonStyleDarkGray}" Name="ResetPassword_" Content="Reset" Margin="60,30,60,0" Height="30" Click="ResetPassword__Click"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Grid.Row="1"  Grid.RowSpan="2" Margin="60,0,0,0">
+                            <Label Content="Delete a user account" FontSize="18" FontWeight="Bold"/>
+                            <Label Content="Select a user" Margin="0,10,0,0"/>
+                            <ComboBox Name="DelUserList_" Margin="0,10,0,0"/>
+                            <Button Style="{StaticResource ButtonStyleDarkGray}" Name="DeleteUser_" Content="Delete" Margin="60,30,60,0" Height="30" Click="DeleteUser__Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+                <!--Fourth TabItem containing account information and allows the user to change their password-->
+                <TabItem Name="UserInfo_" Margin="0,-1,0,0">
+                    <TabItem.Header>
+                        <TextBlock Text="Account" ToolTip="Account information page"/>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="20"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="Account information" Grid.Column="1" Grid.Row="1" Margin="0,30,0,0" FontSize="30"/>
+                        <!--UserName Labels-->
+                        <Label Content="Username" Grid.Column="1" Grid.Row="2" FontSize="13"/>
+                        <Label Name="UserNameD_" Content="UserName" Grid.Column="1" Grid.Row="2" Margin="0,18,0,0" FontSize="25"/>
+                        <!--UserType Labels-->
+                        <Label Content="User Type" Grid.Column="1" Grid.Row="3" FontSize="13"/>
+                        <Label Name="UserTypeD_" Content="UserType" Grid.Column="1" Grid.Row="3" Margin="0,18,0,0" FontSize="25"/>
+                        <!--Changes the visibility of the StackPanel that is used to change passwords-->
+                        <Button Style="{StaticResource ButtonStyleDarkGray}"  x:Name="ChangePassword_" Content="Change Password" Grid.Column="1" Grid.Row="4"
+                            Margin="0,25,105,0" Height="30" Click="ChangePassword__Click" VerticalAlignment="Bottom"/>
+                        <Button Style="{StaticResource ButtonStyleDarkGray}" x:Name="Logout_" Content="Logout" Grid.Column="1" Grid.Row="5" Margin="0,0,105,-24" Height="30" Click="Logout__Click"/>
+                        <!--StackPanel with labels and TextBoxes for changing the password-->
+                        <StackPanel Grid.Column="2" Grid.Row="2" Margin="100,0,0,0" Grid.RowSpan="3" x:Name="StackPass" IsEnabled="False" Visibility="Hidden">
+                            <Label Content="Current Password" FontSize="18"/>
+                            <PasswordBox x:Name="CurrentPassword_" Width="200" FontSize="17"/>
+                            <Label Content="New Password" FontSize="18" Margin="0,15,0,0"/>
+                            <PasswordBox x:Name="NewPassword_" Width="200" FontSize="17"/>
+                            <Label Content="Confirm Password" FontSize="18"/>
+                            <PasswordBox x:Name="NewPasswordRe_" Width="200" FontSize="17"/>
+                            <Button Style="{StaticResource ButtonStyleDarkGray}" x:Name="PasswordSave_" Content="Save" Margin="30,35,30,-3" 
+                                Height="30" VerticalAlignment="Bottom" Click="PasswordSave__Click"/>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+
+            <!--Label that says Welcome and then the UserName_-->
+            <Label x:Name="Welcome_" Content="Welcome user" Margin="-630,-330,0,0" FontSize="15"  Width="140" Height="30"/>
+            <!--Exit Button that uses a style that makes it transparent and remove the standard MouseOver effect-->
+            <Button Style="{StaticResource ButtonStyleTransparent}" x:Name="Exit_"  
+                Margin="778,5,5,428" Click="Exit__Click" >
+                <StackPanel>
+                    <!--Image contained inside the button of a X and changes colour when the mouse is hovering over it-->
+                    <Image Style="{StaticResource ExitStyleRed}" Height="15" Width="15" />
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

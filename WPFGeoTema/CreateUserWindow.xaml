@@ -1,0 +1,62 @@
+﻿<Window x:Class="WPFGeoTema.CreateUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFGeoTema"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        FontFamily="segoe ui light"
+        FontSize="15"
+        WindowStartupLocation="CenterScreen" 
+        MouseLeftButtonDown="WindowMove"
+        Title="GeoTemaCreateUser" Height="370" Width="571">
+    <Border BorderBrush="#FF464545" BorderThickness="1">
+        <Grid Background="WhiteSmoke">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="325" MinWidth="325"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  Fill="#FF464545" Margin="0,0,153,0"/>
+            <TextBlock Text="Create User" FontSize="25" Grid.Column="1" Grid.Row="1" Foreground="WhiteSmoke" Margin="0,0,127,0"/>
+
+            <StackPanel Grid.Column="1" Grid.Row="2" Margin="40,50,10,0">
+                <Label Content="User name"/>
+                <TextBox x:Name="UserNameCU_" />
+                <Label Content="Password" Margin="0,9,0,0"/>
+                <PasswordBox x:Name="PasswordCU_"/>
+                <Label Content="Confirm Password" Margin="0,9,0,0"/>
+                <PasswordBox x:Name="PasswordreCU_"/>
+                <Label Content="Type of user" Margin="0,9,0,0"/>
+                <ComboBox x:Name="UserTypeCU_">
+                    <ComboBoxItem Content="Standard User"/>
+                    <ComboBoxItem Content="Super User"/>
+                    <ComboBoxItem Content="Admin User"/>
+                </ComboBox>
+            </StackPanel>
+            <!--Buttons for creating the new user account or cancelling it and closing the window-->
+            <StackPanel Grid.Column="3" Grid.Row="2" Margin="55,200,15,45" >
+                <Button Style="{StaticResource ButtonStyleDarkGray}" x:Name="Create_" Content="Create" Width="90" Height="30" Click="Create__Click"/>
+                <Button Style="{StaticResource ButtonStyleDarkGray}" x:Name="Cancel_" Content="Cancel" Height="30" Margin="0,30,0,0" Click="Cancel__Click"/>
+            </StackPanel>
+            <!--Exit Button that uses a style that makes it transparent and remove the standard MouseOver effect-->
+            <Button Style="{StaticResource ButtonStyleTransparent}" x:Name="Exit_" Grid.Column="3" Grid.ColumnSpan="2"
+                Margin="201,5,5,0" Width="15" Click="Exit__Click">
+                <StackPanel>
+                    <!--Image contained inside the button of a X and changes colour when the mouse is hovering over it-->
+                    <Image Style="{StaticResource ExitStyleDef}" Height="15" />
+                    <!--Image contained inside the button of a X and changes colour when the mouse is hovering over it-->
+                </StackPanel>
+            </Button>
+        </Grid>
+    </Border>
+</Window>
